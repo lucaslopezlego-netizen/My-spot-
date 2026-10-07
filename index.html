@@ -16,11 +16,12 @@
       --mauve: #9d8b97;
       --peach: #e9a99b;
       --taupe: #b9a9a6;
-      --ink: #1a1a1a;
-      --muted: #8a8a8a;
+      --ink: #4a594a;
+      --text: #5c6b5c;
+      --muted: #87948a;
       --soft: #f5f5f5;
       --line: #ececec;
-      --link: #2f7cf6;
+      --link: #4a594a;
       --radius: 14px;
       --max: 1080px;
     }
@@ -50,10 +51,10 @@
     }
     .nav.scrolled { border-color: var(--line); }
     .nav .container { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-    .brand { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+    .brand { color: var(--ink); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
     .brand sup { font-size: 9px; }
     .nav-links { display: flex; gap: 40px; list-style: none; }
-    .nav-links a { font-size: 14px; font-weight: 500; transition: color .2s; }
+    .nav-links a { color: var(--ink); font-size: 14px; font-weight: 500; transition: color .2s; }
     .nav-links a:hover { color: var(--sage); }
     .menu-btn {
       display: none; background: none; border: 0; cursor: pointer;
@@ -99,7 +100,7 @@
 
     /* ---------- About ---------- */
     .about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .about p { color: #555; font-size: 16px; margin-bottom: 14px; }
+    .about p { color: var(--text); font-size: 16px; margin-bottom: 14px; }
     .about h3 { font-size: 28px; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 18px; }
     .values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .value { background: var(--soft); border-radius: var(--radius); padding: 20px; }
@@ -108,12 +109,12 @@
     .dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
 
     /* ---------- Services ---------- */
-    .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 780px; margin: 0 auto; }
     .card .photo {
       aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative;
       background: var(--soft);
     }
-    .card .photo img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+    .card .photo img { object-position: center 35%; position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
     .card:hover .photo img { transform: scale(1.04); }
     .card .photo .ph {
       position: absolute; inset: 0; display: grid; place-items: center;
@@ -130,7 +131,7 @@
       transition: transform .25s, box-shadow .25s;
     }
     .t-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.06); }
-    .t-card blockquote { font-size: 14px; color: #555; }
+    .t-card blockquote { font-size: 14px; color: var(--text); }
     .t-card .who b { display: block; font-size: 13px; }
     .t-card .who span { font-size: 12px; color: var(--muted); }
 
@@ -138,25 +139,31 @@
     .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
     .info-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
     .info-card h4 { font-size: 15px; margin-bottom: 10px; }
-    .info-card ul { list-style: none; font-size: 14px; color: #555; }
+    .info-card ul { list-style: none; font-size: 14px; color: var(--text); }
     .info-card li { padding: 6px 0; border-bottom: 1px dashed var(--line); display: flex; justify-content: space-between; gap: 12px; }
     .info-card li:last-child { border-bottom: 0; }
     .info-card li span:last-child { color: var(--muted); text-align: right; }
 
     /* ---------- Footer ---------- */
-    footer { border-top: 1px solid var(--line); padding: 48px 0 32px; margin-top: 24px; }
-    .footer-grid { display: flex; justify-content: space-between; gap: 40px; }
-    .footer-brand p { color: var(--muted); font-size: 13px; margin-top: 8px; max-width: 260px; }
-    .footer-cols { display: flex; gap: 56px; }
-    .footer-cols h5 { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
-    .footer-cols ul { list-style: none; font-size: 13px; }
-    .footer-cols li { margin-bottom: 6px; color: var(--muted); }
-    .footer-cols a.blue { color: var(--link); }
-    .footer-cols a:hover { text-decoration: underline; }
-    .copy { margin-top: 40px; font-size: 12px; color: var(--muted); text-align: center; }
-    .credit { margin-top: 8px; text-align: center; font-size: 12px; }
-    .credit a { color: #000; font-weight: 500; }
-    .credit a:hover { text-decoration: underline; }
+    footer { border-top: 1px solid var(--line); padding: 56px 0 28px; margin-top: 24px; background: #fafaf8; }
+    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
+    .footer-brand p { color: var(--muted); font-size: 13px; margin-top: 10px; max-width: 240px; }
+    .footer-grid h5 {
+      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--sage); margin-bottom: 14px;
+    }
+    .footer-grid ul { list-style: none; font-size: 14px; display: grid; gap: 8px; }
+    .footer-grid li, .footer-grid a { color: var(--text); }
+    .footer-grid a:hover { color: var(--ink); text-decoration: underline; }
+    .footer-grid small { display: block; font-size: 11px; color: var(--muted); }
+    .footer-bottom {
+      margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+      font-size: 12px; color: var(--muted);
+    }
+    .credit { color: var(--text); }
+    .credit b { font-weight: 700; color: var(--ink); }
+    .credit:hover { text-decoration: underline; }
 
     /* ---------- Reveal on scroll ---------- */
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
@@ -174,14 +181,14 @@
       .brand { position: absolute; left: 24px; }
       .hero { padding-top: 48px; }
       .logo-wrap { max-width: 640px; margin-top: 40px; }
-      .services { gap: 16px; }
+      .services { gap: 16px; max-width: 620px; }
       .about { gap: 32px; }
       .about h3 { font-size: 24px; }
       .testimonials { gap: 14px; }
       .t-card { min-height: 200px; padding: 18px; }
       .info { gap: 14px; }
-      .footer-grid { flex-direction: column; align-items: flex-end; }
-      .footer-brand { align-self: flex-start; }
+      .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
+      .footer-brand { grid-column: 1 / -1; }
     }
 
     /* =========================================================
@@ -213,12 +220,14 @@
       .about, .services, .testimonials, .info { grid-template-columns: 1fr; }
       .about h3 { font-size: 22px; }
       .services { gap: 28px; }
-      .card .photo { aspect-ratio: 4 / 3.4; }
+      .services { max-width: 290px; }
+      .card .photo { aspect-ratio: 1 / 1; }
       .card p { max-width: none; }
       .t-card { min-height: 170px; }
 
-      .footer-grid { align-items: stretch; }
-      .footer-cols { flex-direction: column; gap: 24px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
+      .footer-grid .contact { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -371,7 +380,7 @@
             <ul>
               <li><span>Visitas guiadas</span><span>Lun – Vie</span></li>
               <li><span>Cupos</span><span>Limitados</span></li>
-              <li><span><a href="https://wa.me/584122150198" style="color:var(--link)">Escríbenos por WhatsApp →</a></span><span></span></li>
+              <li><span><a href="https://wa.me/584122150188" style="color:var(--link)">Escríbenos por WhatsApp →</a></span><span></span></li>
             </ul>
           </div>
         </div>
@@ -385,37 +394,39 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <a href="#inicio" class="brand">My Spot<sup>®</sup></a>
-          <p>Preescolar, after school y gym para niños.</p>
+          <p>Preescolar, after school y gym para niños. Aprender jugando, en un lugar seguro.</p>
         </div>
-        <div class="footer-cols">
-          <div>
-            <h5>Contáctanos</h5>
-            <ul>
-              <li><a class="blue" href="tel:04122150198">0412 215 0198</a></li>
-              <li><a class="blue" href="mailto:hola@myspot.com">Correo</a></li>
-              <li><a class="blue" href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5>Explorar</h5>
-            <ul>
-              <li><a href="#nosotros">Sobre nosotros</a></li>
-              <li><a href="#servicios">Servicios</a></li>
-              <li><a href="#testimonios">Testimonios</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5>Programas</h5>
-            <ul>
-              <li>Prescolar</li>
-              <li>After school</li>
-              <li>My Spot Gym</li>
-            </ul>
-          </div>
+        <div class="contact">
+          <h5>Contáctanos</h5>
+          <ul>
+            <li><a href="tel:+584122150188">+58 412-2150188</a><small>Teléfono</small></li>
+            <li><a href="https://wa.me/584122150188" target="_blank" rel="noopener">WhatsApp</a></li>
+            <li><a href="mailto:hola@myspot.com">Correo</a></li>
+            <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Explorar</h5>
+          <ul>
+            <li><a href="#nosotros">Sobre nosotros</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#testimonios">Testimonios</a></li>
+            <li><a href="#informacion">Información</a></li>
+          </ul>
+        </div>
+        <div>
+          <h5>Programas</h5>
+          <ul>
+            <li>Prescolar</li>
+            <li>After school</li>
+            <li>My Spot Gym</li>
+          </ul>
         </div>
       </div>
-      <p class="copy">© <span id="year"></span> My Spot®. Todos los derechos reservados.</p>
-      <p class="credit"><a href="https://yourlandweb.com" target="_blank" rel="noopener">paginawebhechaporyourland</a></p>
+      <div class="footer-bottom">
+        <span>© <span id="year"></span> My Spot®. Todos los derechos reservados.</span>
+        <a class="credit" href="https://yourlandweb.com" target="_blank" rel="noopener">página web hecha por <b>yourland</b></a>
+      </div>
     </div>
   </footer>
 
