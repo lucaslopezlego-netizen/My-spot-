@@ -8,339 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fredoka:wght@500;600&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --sage: #7e8f7e;
-      --terracotta: #c8957a;
-      --blue: #93afc4;
-      --mauve: #9d8b97;
-      --peach: #e9a99b;
-      --taupe: #b9a9a6;
-      --ink: #4a594a;
-      --text: #5c6b5c;
-      --muted: #87948a;
-      --soft: #f5f5f5;
-      --line: #ececec;
-      --link: #4a594a;
-      --radius: 14px;
-      --max: 1080px;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: "Inter", system-ui, -apple-system, sans-serif;
-      color: var(--ink);
-      background: #fff;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-    img { display: block; max-width: 100%; }
-    a { color: inherit; text-decoration: none; }
-
-    .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 24px; }
-
-    /* ---------- Navbar ---------- */
-    .nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(255, 255, 255, 0.86);
-      backdrop-filter: saturate(160%) blur(12px);
-      -webkit-backdrop-filter: saturate(160%) blur(12px);
-      transition: box-shadow .3s, background .3s;
-    }
-    .nav::after {
-      /* franja con los colores del logo */
-      content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
-      background: linear-gradient(90deg,
-        var(--terracotta) 0 16.6%, var(--blue) 0 33.3%, var(--mauve) 0 50%,
-        var(--sage) 0 66.6%, var(--taupe) 0 83.3%, var(--peach) 0 100%);
-      opacity: .85;
-    }
-    .nav.scrolled { background: rgba(255, 255, 255, 0.96); box-shadow: 0 6px 24px rgba(74, 89, 74, .08); }
-    .nav .container { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 76px; transition: height .3s; }
-    .nav.scrolled .container { height: 64px; }
-
-    .brand { color: var(--ink); font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
-    .brand sup { font-size: 9px; }
-    .nav-brand { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-    .nav-brand img { height: 44px; width: auto; transition: height .3s, transform .3s; }
-    .nav.scrolled .nav-brand img { height: 38px; }
-    .nav-brand:hover img { transform: rotate(-3deg) scale(1.04); }
-    .nav-brand .tag {
-      display: flex; flex-direction: column; line-height: 1.1; padding-left: 12px;
-      border-left: 1px solid var(--line);
-    }
-    .nav-brand .tag b { font-size: 14px; color: var(--ink); letter-spacing: -0.01em; }
-    .nav-brand .tag span { font-size: 11px; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
-
-    .nav-menu { display: flex; align-items: center; gap: 14px; }
-    .nav-links {
-      display: flex; gap: 2px; list-style: none; padding: 5px;
-      background: #f3f5f2; border-radius: 999px;
-    }
-    .nav-links a {
-      --c: var(--sage);
-      display: flex; align-items: center; gap: 8px;
-      padding: 8px 16px; border-radius: 999px;
-      color: var(--ink); font-size: 14px; font-weight: 500;
-      transition: background .25s, color .25s;
-    }
-    .nav-links a::before {
-      content: ""; width: 7px; height: 7px; border-radius: 2px; background: var(--c);
-      transform: scale(0); transition: transform .25s;
-    }
-    .nav-links a:hover, .nav-links a.active { background: #fff; box-shadow: 0 1px 4px rgba(74, 89, 74, .12); }
-    .nav-links a:hover::before, .nav-links a.active::before { transform: scale(1) rotate(45deg); }
-    .nav-links a:focus-visible, .nav-cta:focus-visible, .menu-btn:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
-    .nav-links li:nth-child(1) a { --c: var(--terracotta); }
-    .nav-links li:nth-child(2) a { --c: var(--blue); }
-    .nav-links li:nth-child(3) a { --c: var(--peach); }
-    .nav-links li:nth-child(4) a { --c: var(--sage); }
-
-    .nav-cta {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 11px 20px; border-radius: 999px;
-      background: var(--ink); color: #fff; font-size: 14px; font-weight: 600;
-      transition: background .25s, transform .25s;
-    }
-    .nav-cta svg { width: 14px; height: 14px; transition: transform .25s; }
-    .nav-cta:hover { background: var(--sage); transform: translateY(-1px); }
-    .nav-cta:hover svg { transform: translateX(3px); }
-    .nav-extra { display: none; }
-
-    .menu-btn {
-      display: none; cursor: pointer; flex-shrink: 0;
-      width: 44px; height: 44px; position: relative;
-      background: #f3f5f2; border: 0; border-radius: 14px;
-    }
-    .menu-btn span {
-      position: absolute; left: 13px; width: 18px; height: 2px; border-radius: 2px; background: var(--ink);
-      transition: transform .3s, opacity .3s, width .3s;
-    }
-    .menu-btn span:nth-child(1) { top: 15px; }
-    .menu-btn span:nth-child(2) { top: 21px; width: 12px; }
-    .menu-btn span:nth-child(3) { top: 27px; }
-    .menu-btn[aria-expanded="true"] { background: var(--ink); }
-    .menu-btn[aria-expanded="true"] span { background: #fff; }
-    .menu-btn[aria-expanded="true"] span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-    .menu-btn[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-    .menu-btn[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-
-    /* ---------- Hero ---------- */
-    .hero { padding: 64px 0 40px; text-align: center; }
-    .quote {
-      color: var(--sage);
-      font-size: clamp(20px, 2.6vw, 30px);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.25;
-    }
-    .quote small { display: block; margin-top: 8px; font-size: 13px; font-weight: 500; color: var(--muted); letter-spacing: 0; }
-    .logo-wrap { margin: 56px auto 0; max-width: 820px; }
-    .logo-wrap img { width: 100%; height: auto; animation: pop .8s cubic-bezier(.3,1.4,.5,1) both; }
-    @keyframes pop { from { opacity: 0; transform: scale(.85); } to { opacity: 1; transform: scale(1); } }
-    .hero .cta {
-      display: inline-block; margin-top: 48px; padding: 14px 28px; border-radius: 999px;
-      background: var(--sage); color: #fff; font-weight: 600; font-size: 15px;
-      transition: transform .2s, background .2s;
-    }
-    .hero .cta:hover { background: #6c7d6c; transform: translateY(-2px); }
-
-    /* ---------- Section heads ---------- */
-    section { scroll-margin-top: 72px; }
-    .section { padding: 72px 0; }
-    .section-head { text-align: center; margin-bottom: 40px; }
-    .section-head h2 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; }
-    .section-head p { font-size: 22px; color: var(--muted); letter-spacing: -0.02em; line-height: 1.2; }
-
-    /* ---------- About ---------- */
-    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
-    .about p { color: var(--text); font-size: 16px; margin-bottom: 14px; }
-    .about h3 { font-size: 28px; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 18px; }
-    .values { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .value { background: var(--soft); border-radius: var(--radius); padding: 20px; }
-    .value b { display: block; font-size: 15px; margin-bottom: 4px; }
-    .value span { font-size: 13px; color: var(--muted); }
-    .dot { width: 12px; height: 12px; border-radius: 4px; display: inline-block; margin-bottom: 12px; }
-
-    /* ---------- Services ---------- */
-    .services { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; max-width: 780px; margin: 0 auto; }
-    .card .photo {
-      aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative;
-      background: var(--soft);
-    }
-    .card .photo img { object-position: center 35%; position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
-    .card:hover .photo img { transform: scale(1.04); }
-    .card .photo .ph {
-      position: absolute; inset: 0; display: grid; place-items: center;
-      font-family: "Fredoka", sans-serif; font-size: 64px; color: #fff;
-    }
-    .card h3 { font-size: 14px; font-weight: 600; margin: 14px 0 6px; }
-    .card p { font-size: 13px; color: var(--muted); max-width: 220px; }
-
-    /* ---------- Testimonials ---------- */
-    .testimonials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .t-card {
-      background: var(--soft); border-radius: var(--radius); padding: 22px;
-      min-height: 220px; display: flex; flex-direction: column; justify-content: space-between;
-      transition: transform .25s, box-shadow .25s;
-    }
-    .t-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.06); }
-    .t-card blockquote { font-size: 14px; color: var(--text); }
-    .t-card .who b { display: block; font-size: 13px; }
-    .t-card .who span { font-size: 12px; color: var(--muted); }
-
-    /* ---------- Info ---------- */
-    .info { display: grid; grid-template-columns: 1.7fr 1fr; gap: 56px; align-items: start; }
-    .schedule { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
-    .schedule th {
-      text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
-      color: var(--sage); padding: 0 0 12px; border-bottom: 2px solid var(--ink);
-    }
-    .schedule td { padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--text); }
-    .schedule td:first-child { color: var(--ink); font-weight: 600; }
-    .schedule th:not(:first-child), .schedule td:not(:first-child) { text-align: right; }
-    .schedule tr:hover td { background: #fafaf8; }
-    .prog { display: inline-flex; align-items: center; gap: 12px; }
-    .prog i { width: 12px; height: 12px; border-radius: 4px; transform: rotate(45deg); flex-shrink: 0; }
-
-    .enroll { padding-left: 32px; border-left: 2px solid var(--line); }
-    .badge {
-      display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;
-      color: var(--ink); background: #eef2ec; padding: 6px 12px; border-radius: 999px;
-    }
-    .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #5fa36a; animation: blink 1.8s infinite; }
-    @keyframes blink { 50% { opacity: .3; } }
-    .enroll h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.25; margin: 16px 0 10px; color: var(--ink); text-wrap: balance; }
-    .enroll p { font-size: 14px; color: var(--text); margin-bottom: 20px; }
-    .enroll dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; margin-bottom: 24px; }
-    .enroll dt { color: var(--muted); }
-    .enroll dd { color: var(--ink); font-weight: 500; overflow-wrap: anywhere; }
-    .enroll dd a:hover { text-decoration: underline; }
-    .enroll-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      padding: 12px 20px; border-radius: 999px; font-size: 14px; font-weight: 600;
-      transition: background .25s, color .25s, transform .25s;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-dark { background: var(--ink); color: #fff; }
-    .btn-dark:hover { background: var(--sage); }
-    .btn-line { border: 1.5px solid var(--ink); color: var(--ink); }
-    .btn-line:hover { background: var(--ink); color: #fff; }
-
-    /* ---------- Footer ---------- */
-    footer { border-top: 1px solid var(--line); padding: 56px 0 28px; margin-top: 24px; background: #fafaf8; }
-    .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-    .footer-brand p { color: var(--muted); font-size: 13px; margin-top: 10px; max-width: 240px; }
-    .footer-grid h5 {
-      font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
-      color: var(--sage); margin-bottom: 14px;
-    }
-    .footer-grid ul { list-style: none; font-size: 14px; display: grid; gap: 8px; }
-    .footer-grid li, .footer-grid a { color: var(--text); }
-    .footer-grid a:hover { color: var(--ink); text-decoration: underline; }
-    .footer-grid small { display: block; font-size: 11px; color: var(--muted); }
-    .footer-bottom {
-      margin-top: 44px; padding-top: 20px; border-top: 1px solid var(--line);
-      display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
-      font-size: 12px; color: var(--muted);
-    }
-    .credit { color: var(--text); }
-    .credit b { font-weight: 700; color: var(--ink); }
-    .credit:hover { text-decoration: underline; }
-
-    /* ---------- Reveal on scroll ---------- */
-    .reveal { opacity: 0; transform: translateY(24px); transition: opacity .7s ease, transform .7s ease; }
-    .reveal.in { opacity: 1; transform: none; }
-    @media (prefers-reduced-motion: reduce) {
-      .reveal { opacity: 1; transform: none; transition: none; }
-      .logo-wrap img { animation: none; }
-    }
-
-    /* =========================================================
-       TABLET  (≤ 1024px)
-       ========================================================= */
-    @media (max-width: 1024px) {
-      .nav-brand .tag { display: none; }
-      .nav-links a { padding: 8px 12px; font-size: 13px; }
-      .nav-cta { padding: 10px 16px; font-size: 13px; }
-      .hero { padding-top: 48px; }
-      .logo-wrap { max-width: 640px; margin-top: 40px; }
-      .services { gap: 16px; max-width: 620px; }
-      .about { gap: 32px; }
-      .about h3 { font-size: 24px; }
-      .testimonials { gap: 14px; }
-      .t-card { min-height: 200px; padding: 18px; }
-      .info { grid-template-columns: 1fr; gap: 48px; }
-      .enroll { padding-left: 0; border-left: 0; padding-top: 32px; border-top: 2px solid var(--line); }
-      .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
-      .footer-brand { grid-column: 1 / -1; }
-    }
-
-    /* =========================================================
-       PHONE  (≤ 640px)
-       ========================================================= */
-    @media (max-width: 640px) {
-      .container { padding: 0 16px; }
-      .nav .container, .nav.scrolled .container { height: 64px; }
-      .nav-brand img, .nav.scrolled .nav-brand img { height: 36px; }
-      .nav-brand .tag { display: flex; }
-      .menu-btn { display: block; }
-      .nav-menu {
-        position: absolute; top: 100%; left: 0; right: 0;
-        flex-direction: column; align-items: stretch; gap: 16px;
-        padding: 12px 16px 20px; background: #fff;
-        border-radius: 0 0 24px 24px; box-shadow: 0 24px 40px rgba(74, 89, 74, .14);
-        opacity: 0; visibility: hidden; transform: translateY(-8px);
-        transition: opacity .25s, transform .25s, visibility .25s;
-      }
-      .nav-menu.open { opacity: 1; visibility: visible; transform: none; }
-      .nav-links { flex-direction: column; gap: 0; padding: 0; background: none; border-radius: 0; }
-      .nav-links li { border-bottom: 1px solid var(--line); }
-      .nav-links a {
-        padding: 16px 4px; font-size: 18px; font-weight: 600; border-radius: 0; gap: 14px;
-      }
-      .nav-links a::before { width: 12px; height: 12px; border-radius: 4px; transform: none; }
-      .nav-links a::after { content: "→"; margin-left: auto; color: var(--muted); transition: transform .25s; }
-      .nav-links a:hover, .nav-links a.active { background: none; box-shadow: none; }
-      .nav-links a:hover::before, .nav-links a.active::before { transform: rotate(45deg); }
-      .nav-links a:hover::after { transform: translateX(4px); color: var(--ink); }
-      .nav-cta { justify-content: center; padding: 15px 20px; font-size: 15px; }
-      .nav-extra { display: block; text-align: center; font-size: 13px; color: var(--muted); }
-      .nav-extra a { color: var(--ink); font-weight: 600; }
-
-      .hero { padding: 32px 0 24px; }
-      .quote { font-size: 20px; }
-      .logo-wrap { margin-top: 28px; }
-      .hero .cta { margin-top: 32px; }
-
-      .section { padding: 48px 0; }
-      .section-head { text-align: left; margin-bottom: 24px; }
-      .section-head h2, .section-head p { font-size: 17px; }
-
-      .about, .services, .testimonials, .info { grid-template-columns: 1fr; }
-      .schedule thead { display: none; }
-      .schedule tr { display: grid; grid-template-columns: 1fr auto; padding: 14px 0; border-bottom: 1px solid var(--line); row-gap: 4px; }
-      .schedule tr:first-child { border-top: 2px solid var(--ink); }
-      .schedule td { padding: 0; border: 0; }
-      .schedule td:first-child { grid-column: 1 / -1; }
-      .schedule td:nth-child(2) { text-align: left; padding-left: 24px; font-size: 14px; color: var(--muted); }
-      .schedule td:nth-child(3) { font-size: 14px; }
-      .enroll-actions { flex-direction: column; }
-      .info { gap: 32px; }
-      .about h3 { font-size: 22px; }
-      .services { gap: 28px; }
-      .services { max-width: 290px; }
-      .card .photo { aspect-ratio: 1 / 1; }
-      .card p { max-width: none; }
-      .t-card { min-height: 170px; }
-
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px 16px; }
-      .footer-grid .contact { grid-column: 1 / -1; }
-      .footer-bottom { flex-direction: column; text-align: center; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -395,33 +63,35 @@
         </div>
 
         <div class="services">
-          <article class="card reveal">
+          <a class="card reveal" href="gym.html">
             <div class="photo" style="background:#e9d6cc">
-              <!-- Reemplaza el src por tu foto: img/prescolar.jpg -->
-              <img src="img/prescolar.jpg" alt="Niña de My Spot frente al mural del arcoíris" onerror="this.remove()" />
+              <img src="img/gym.jpg" alt="Niña de My Spot frente al mural del arcoíris" onerror="this.remove()" />
               <div class="ph">🧸</div>
             </div>
-            <h3>Prescolar</h3>
-            <p>Educación inicial bilingüe basada en el juego, la exploración y la autonomía, para niños de 1 a 5 años.</p>
-          </article>
+            <h3>My Spot Gym</h3>
+            <p>Estimulación temprana desde los 3 meses: masaje infantil, música y terapia ocupacional.</p>
+            <span class="more">Ver programa</span>
+          </a>
 
-          <article class="card reveal">
+          <a class="card reveal" href="prescolar.html">
             <div class="photo" style="background:#d3dfe8">
-              <img src="img/after-school.jpg" alt="Dos niñas sonriendo con sus libros" onerror="this.remove()" />
+              <img src="img/prescolar.jpg" alt="Dos niñas sonriendo con sus libros" onerror="this.remove()" />
               <div class="ph">📚</div>
             </div>
-            <h3>After school</h3>
-            <p>Fomenta el pensamiento lógico, la concentración y la resolución de problemas para niños desde 3 años.</p>
-          </article>
+            <h3>Prescolar</h3>
+            <p>Educación inicial bilingüe de 12 meses a 5 años, con ajedrez y robótica en el currículo.</p>
+            <span class="more">Ver programa</span>
+          </a>
 
-          <article class="card reveal">
+          <a class="card reveal" href="after-school.html">
             <div class="photo" style="background:#dcd3e0">
-              <img src="img/gym.jpg" alt="Niños haciendo yoga con su maestra" onerror="this.remove()" />
+              <img src="img/after-school.jpg" alt="Niños haciendo yoga con su maestra" onerror="this.remove()" />
               <div class="ph">🤸</div>
             </div>
-            <h3>My Spot Gym</h3>
-            <p>Arte, yoga, inglés, música y deportes por las tardes para enriquecer el aprendizaje integral.</p>
-          </article>
+            <h3>After school</h3>
+            <p>Arte, yoga, inglés, música y deportes por la tarde, abierto a niños de otras instituciones.</p>
+            <span class="more">Ver programa</span>
+          </a>
         </div>
       </div>
     </section>
@@ -433,14 +103,15 @@
           <div class="section-head" style="text-align:left;margin-bottom:16px">
             <h2>Sobre nosotros</h2>
           </div>
-          <h3>Un lugar donde cada niño encuentra su espacio.</h3>
-          <p>En My Spot acompañamos a los más pequeños en sus primeros años con amor, respeto y una metodología inspirada en Montessori.</p>
-          <p>Creemos que cada niño aprende a su ritmo. Por eso diseñamos ambientes preparados, grupos reducidos y un equipo de maestras bilingües comprometidas con su desarrollo.</p>
+          <h3>Un espacio de paz pensado para los niños.</h3>
+          <p>My Spot nació en 2009 en una casita en Santa Paula, como una escuela de inglés y arte con una visión clara: fomentar la formación en valores.</p>
+          <p>Dos años después iniciamos la construcción de nuestra sede actual en La Tahona. Cada espacio y cada detalle fue diseñado pensando en los niños, y hoy el proyecto va mucho más allá de un centro educativo.</p>
+          <p>Nuestro programa integral busca formar seres humanos ricos en valores, independientes y amantes del proceso de aprendizaje.</p>
         </div>
         <div class="values reveal">
-          <div class="value"><i class="dot" style="background:var(--terracotta)"></i><b>Ambiente seguro</b><span>Espacios cuidados y supervisados.</span></div>
+          <div class="value"><i class="dot" style="background:var(--terracotta)"></i><b>Desde 2009</b><span>Más de 15 años acompañando familias.</span></div>
           <div class="value"><i class="dot" style="background:var(--blue)"></i><b>Bilingüe</b><span>Inglés y español todos los días.</span></div>
-          <div class="value"><i class="dot" style="background:var(--sage)"></i><b>Grupos pequeños</b><span>Atención personalizada.</span></div>
+          <div class="value"><i class="dot" style="background:var(--sage)"></i><b>Formación en valores</b><span>Niños independientes y empáticos.</span></div>
           <div class="value"><i class="dot" style="background:var(--peach)"></i><b>Aprender jugando</b><span>Material sensorial y creativo.</span></div>
         </div>
       </div>
@@ -486,10 +157,9 @@
                 <tr><th>Programa</th><th>Edad</th><th>Horario</th></tr>
               </thead>
               <tbody>
-                <tr><td><span class="prog"><i style="background:var(--terracotta)"></i>Maternal</span></td><td>1 – 2 años</td><td>7:30 – 12:30</td></tr>
-                <tr><td><span class="prog"><i style="background:var(--blue)"></i>Prescolar</span></td><td>3 – 5 años</td><td>7:30 – 12:30</td></tr>
-                <tr><td><span class="prog"><i style="background:var(--peach)"></i>After school</span></td><td>3+ años</td><td>12:30 – 17:00</td></tr>
-                <tr><td><span class="prog"><i style="background:var(--sage)"></i>My Spot Gym</span></td><td>3+ años</td><td>15:00 – 18:00</td></tr>
+                <tr><td><a class="prog" href="gym.html"><i style="background:var(--terracotta)"></i>My Spot Gym</a></td><td>Desde 3 meses</td><td>Consultar</td></tr>
+                <tr><td><a class="prog" href="prescolar.html"><i style="background:var(--blue)"></i>Prescolar</a></td><td>12 meses – 5 años</td><td>7:30 – 12:30</td></tr>
+                <tr><td><a class="prog" href="after-school.html"><i style="background:var(--sage)"></i>After school</a></td><td>Niños en edad escolar</td><td>Tardes</td></tr>
               </tbody>
             </table>
           </div>
@@ -543,9 +213,9 @@
         <div>
           <h5>Programas</h5>
           <ul>
-            <li>Prescolar</li>
-            <li>After school</li>
-            <li>My Spot Gym</li>
+            <li><a href="gym.html">My Spot Gym</a></li>
+            <li><a href="prescolar.html">Prescolar</a></li>
+            <li><a href="after-school.html">After school</a></li>
           </ul>
         </div>
       </div>
@@ -556,43 +226,6 @@
     </div>
   </footer>
 
-  <script>
-    // Año del footer
-    document.getElementById('year').textContent = new Date().getFullYear();
-
-    // Borde del navbar al hacer scroll
-    const nav = document.getElementById('nav');
-    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
-    // Menú móvil
-    const btn = document.getElementById('menuBtn');
-    const menu = document.getElementById('navMenu');
-    const setMenu = open => {
-      menu.classList.toggle('open', open);
-      btn.setAttribute('aria-expanded', open);
-      btn.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
-    };
-    btn.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
-    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
-
-    // Resaltar la sección visible en el menú
-    const navLinks = [...document.querySelectorAll('.nav-links a')];
-    const spy = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (!e.isIntersecting) return;
-        navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    navLinks.forEach(a => { const sec = document.querySelector(a.getAttribute('href')); if (sec) spy.observe(sec); });
-
-    // Animación de aparición
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
