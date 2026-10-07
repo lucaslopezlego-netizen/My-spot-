@@ -191,13 +191,43 @@
     .t-card .who span { font-size: 12px; color: var(--muted); }
 
     /* ---------- Info ---------- */
-    .info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-    .info-card { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-    .info-card h4 { font-size: 15px; margin-bottom: 10px; }
-    .info-card ul { list-style: none; font-size: 14px; color: var(--text); }
-    .info-card li { padding: 6px 0; border-bottom: 1px dashed var(--line); display: flex; justify-content: space-between; gap: 12px; }
-    .info-card li:last-child { border-bottom: 0; }
-    .info-card li span:last-child { color: var(--muted); text-align: right; }
+    .info { display: grid; grid-template-columns: 1.7fr 1fr; gap: 56px; align-items: start; }
+    .schedule { width: 100%; border-collapse: collapse; font-size: 15px; font-variant-numeric: tabular-nums; }
+    .schedule th {
+      text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+      color: var(--sage); padding: 0 0 12px; border-bottom: 2px solid var(--ink);
+    }
+    .schedule td { padding: 16px 0; border-bottom: 1px solid var(--line); color: var(--text); }
+    .schedule td:first-child { color: var(--ink); font-weight: 600; }
+    .schedule th:not(:first-child), .schedule td:not(:first-child) { text-align: right; }
+    .schedule tr:hover td { background: #fafaf8; }
+    .prog { display: inline-flex; align-items: center; gap: 12px; }
+    .prog i { width: 12px; height: 12px; border-radius: 4px; transform: rotate(45deg); flex-shrink: 0; }
+
+    .enroll { padding-left: 32px; border-left: 2px solid var(--line); }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600;
+      color: var(--ink); background: #eef2ec; padding: 6px 12px; border-radius: 999px;
+    }
+    .badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #5fa36a; animation: blink 1.8s infinite; }
+    @keyframes blink { 50% { opacity: .3; } }
+    .enroll h3 { font-size: 22px; letter-spacing: -0.02em; line-height: 1.25; margin: 16px 0 10px; color: var(--ink); text-wrap: balance; }
+    .enroll p { font-size: 14px; color: var(--text); margin-bottom: 20px; }
+    .enroll dl { display: grid; grid-template-columns: auto 1fr; gap: 8px 16px; font-size: 14px; margin-bottom: 24px; }
+    .enroll dt { color: var(--muted); }
+    .enroll dd { color: var(--ink); font-weight: 500; overflow-wrap: anywhere; }
+    .enroll dd a:hover { text-decoration: underline; }
+    .enroll-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 12px 20px; border-radius: 999px; font-size: 14px; font-weight: 600;
+      transition: background .25s, color .25s, transform .25s;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-dark { background: var(--ink); color: #fff; }
+    .btn-dark:hover { background: var(--sage); }
+    .btn-line { border: 1.5px solid var(--ink); color: var(--ink); }
+    .btn-line:hover { background: var(--ink); color: #fff; }
 
     /* ---------- Footer ---------- */
     footer { border-top: 1px solid var(--line); padding: 56px 0 28px; margin-top: 24px; background: #fafaf8; }
@@ -242,7 +272,8 @@
       .about h3 { font-size: 24px; }
       .testimonials { gap: 14px; }
       .t-card { min-height: 200px; padding: 18px; }
-      .info { gap: 14px; }
+      .info { grid-template-columns: 1fr; gap: 48px; }
+      .enroll { padding-left: 0; border-left: 0; padding-top: 32px; border-top: 2px solid var(--line); }
       .footer-grid { grid-template-columns: 1fr 1fr 1fr; gap: 32px; }
       .footer-brand { grid-column: 1 / -1; }
     }
@@ -289,6 +320,15 @@
       .section-head h2, .section-head p { font-size: 17px; }
 
       .about, .services, .testimonials, .info { grid-template-columns: 1fr; }
+      .schedule thead { display: none; }
+      .schedule tr { display: grid; grid-template-columns: 1fr auto; padding: 14px 0; border-bottom: 1px solid var(--line); row-gap: 4px; }
+      .schedule tr:first-child { border-top: 2px solid var(--ink); }
+      .schedule td { padding: 0; border: 0; }
+      .schedule td:first-child { grid-column: 1 / -1; }
+      .schedule td:nth-child(2) { text-align: left; padding-left: 24px; font-size: 14px; color: var(--muted); }
+      .schedule td:nth-child(3) { font-size: 14px; }
+      .enroll-actions { flex-direction: column; }
+      .info { gap: 32px; }
       .about h3 { font-size: 22px; }
       .services { gap: 28px; }
       .services { max-width: 290px; }
@@ -440,29 +480,34 @@
         </div>
 
         <div class="info">
-          <div class="info-card reveal">
-            <h4>Horarios</h4>
-            <ul>
-              <li><span>Prescolar</span><span>7:30 – 12:30</span></li>
-              <li><span>After school</span><span>12:30 – 17:00</span></li>
-              <li><span>My Spot Gym</span><span>15:00 – 18:00</span></li>
-            </ul>
+          <div class="reveal">
+            <table class="schedule">
+              <thead>
+                <tr><th>Programa</th><th>Edad</th><th>Horario</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><span class="prog"><i style="background:var(--terracotta)"></i>Maternal</span></td><td>1 – 2 años</td><td>7:30 – 12:30</td></tr>
+                <tr><td><span class="prog"><i style="background:var(--blue)"></i>Prescolar</span></td><td>3 – 5 años</td><td>7:30 – 12:30</td></tr>
+                <tr><td><span class="prog"><i style="background:var(--peach)"></i>After school</span></td><td>3+ años</td><td>12:30 – 17:00</td></tr>
+                <tr><td><span class="prog"><i style="background:var(--sage)"></i>My Spot Gym</span></td><td>3+ años</td><td>15:00 – 18:00</td></tr>
+              </tbody>
+            </table>
           </div>
-          <div class="info-card reveal">
-            <h4>Edades</h4>
-            <ul>
-              <li><span>Maternal</span><span>1 – 2 años</span></li>
-              <li><span>Prescolar</span><span>3 – 5 años</span></li>
-              <li><span>After school / Gym</span><span>3+ años</span></li>
-            </ul>
-          </div>
-          <div class="info-card reveal">
-            <h4>Inscripciones abiertas</h4>
-            <ul>
-              <li><span>Visitas guiadas</span><span>Lun – Vie</span></li>
-              <li><span>Cupos</span><span>Limitados</span></li>
-              <li><span><a href="https://wa.me/584122150188" style="color:var(--link)">Escríbenos por WhatsApp →</a></span><span></span></li>
-            </ul>
+
+          <div class="enroll reveal">
+            <span class="badge">Inscripciones abiertas</span>
+            <h3>Ven a conocernos con tu peque.</h3>
+            <p>Agenda una visita guiada y conoce nuestros espacios y a las maestras.</p>
+            <dl>
+              <dt>Visitas</dt><dd>Lunes a viernes</dd>
+              <dt>Cupos</dt><dd>Limitados</dd>
+              <dt>Teléfono</dt><dd><a href="tel:+584122150188">+58 412-2150188</a></dd>
+              <dt>Correo</dt><dd><a href="mailto:note.myspot@gmail.com">note.myspot@gmail.com</a></dd>
+            </dl>
+            <div class="enroll-actions">
+              <a class="btn btn-dark" href="https://wa.me/584122150188" target="_blank" rel="noopener">Escríbenos por WhatsApp</a>
+              <a class="btn btn-line" href="mailto:note.myspot@gmail.com">Enviar correo</a>
+            </div>
           </div>
         </div>
       </div>
@@ -482,7 +527,7 @@
           <ul>
             <li><a href="tel:+584122150188">+58 412-2150188</a><small>Teléfono</small></li>
             <li><a href="https://wa.me/584122150188" target="_blank" rel="noopener">WhatsApp</a></li>
-            <li><a href="mailto:hola@myspot.com">Correo</a></li>
+            <li><a href="mailto:note.myspot@gmail.com">note.myspot@gmail.com</a></li>
             <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
           </ul>
         </div>
