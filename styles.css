@@ -367,7 +367,9 @@ a.prog:hover { text-decoration: underline; }
 .svc-after { --c: var(--sage); --c-soft: #eef2ec; }
 
 .svc-hero { padding: 48px 0 72px; }
-.crumbs { display: flex; gap: 8px; font-size: 13px; color: var(--muted); margin-bottom: 32px; }
+.crumbs { display: flex; flex-wrap: wrap; gap: 8px; font-size: 13px; color: var(--muted); }
+.crumbs-wrap { padding-bottom: 40px; }
+.crumbs-bottom { padding-top: 24px; border-top: 1px solid var(--line); }
 .crumbs a { color: var(--text); }
 .crumbs a:hover { color: var(--ink); text-decoration: underline; }
 .svc-hero-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 64px; align-items: center; }
@@ -437,7 +439,6 @@ a.prog:hover { text-decoration: underline; }
 }
 @media (max-width: 640px) {
   .svc-hero { padding: 24px 0 48px; }
-  .crumbs { margin-bottom: 20px; }
   .svc-hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .svc-photo { justify-self: center; max-width: 300px; }
   .svc-section { padding: 52px 0; }
@@ -520,3 +521,13 @@ a.prog:hover { text-decoration: underline; }
 .more-link:hover { text-decoration: underline; }
 .letter-tile.two span { font-size: clamp(84px, 10vw, 140px); letter-spacing: -0.02em; }
 @media (max-width: 640px) { .letter-tile.two span { font-size: 86px; } }
+
+/* Botón para volver a Prescolar en las páginas del currículo */
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px; margin-bottom: 28px;
+  padding: 10px 18px; border-radius: 999px; background: #f4ede4; border: 1px solid #ebe1d4;
+  color: var(--ink); font-size: 14px; font-weight: 600; transition: background .25s, transform .25s;
+}
+.back-btn:hover { background: #ece2d5; transform: translateX(-2px); }
+.back-btn:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+@media (max-width: 640px) { .back-btn { margin-bottom: 20px; } }
