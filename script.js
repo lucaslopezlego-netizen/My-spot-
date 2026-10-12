@@ -35,3 +35,7 @@ const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
 }, { threshold: 0.12 });
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+// Al abrir una página sin #sección, empezar siempre arriba del todo
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.addEventListener('pageshow', () => { if (!location.hash) window.scrollTo(0, 0); });

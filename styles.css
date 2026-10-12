@@ -232,7 +232,7 @@ section { scroll-margin-top: 72px; }
 /* ---------- Footer ---------- */
 footer { border-top: 1px solid var(--line); padding: 56px 0 28px; margin-top: 24px; background: #fafaf8; }
 .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 40px; }
-.footer-brand p { color: var(--muted); font-size: 13px; margin-top: 10px; max-width: 240px; }
+.footer-brand p { color: var(--muted); font-size: 13px; margin-top: 10px; max-width: 300px; }
 .footer-grid h5 {
   font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
   color: var(--sage); margin-bottom: 14px;
@@ -388,9 +388,6 @@ a.prog:hover { text-decoration: underline; }
 .svc-facts span { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .svc-facts b { font-size: 16px; color: var(--ink); }
 .svc-photo { position: relative; max-width: 440px; justify-self: end; width: 100%; }
-.svc-photo::before {
-  content: ""; position: absolute; inset: 20px -20px -20px 20px; border-radius: 28px; background: var(--c); opacity: .35;
-}
 .svc-photo img { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 28px; }
 
 .svc-section { padding: 72px 0; }
@@ -443,7 +440,6 @@ a.prog:hover { text-decoration: underline; }
   .crumbs { margin-bottom: 20px; }
   .svc-hero-grid { grid-template-columns: 1fr; gap: 40px; }
   .svc-photo { justify-self: center; max-width: 300px; }
-  .svc-photo::before { inset: 14px -14px -14px 14px; }
   .svc-section { padding: 52px 0; }
   .activities { grid-template-columns: 1fr; gap: 28px; }
   .highlight { grid-template-columns: 1fr; gap: 12px; }
@@ -452,3 +448,75 @@ a.prog:hover { text-decoration: underline; }
   .cta-band .btn { width: 100%; }
   .other-svcs { grid-template-columns: 1fr; }
 }
+
+/* Lista de actividades en la portada de un servicio */
+.svc-list {
+  list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px;
+  margin: 24px 0 4px; max-width: 520px;
+}
+.svc-list li { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 500; color: var(--ink); }
+.svc-list li::before {
+  content: ""; width: 9px; height: 9px; border-radius: 3px; background: var(--c);
+  transform: rotate(45deg); flex-shrink: 0;
+}
+@media (max-width: 640px) {
+  .svc-list { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* Actividades en cuadros beige */
+.activities.boxes { gap: 20px; }
+.activities.boxes li {
+  border-top: 0; padding: 28px 26px; border-radius: 20px;
+  background: #f4ede4; border: 1px solid #ebe1d4;
+}
+.activities.boxes b { font-size: 18px; margin-bottom: 8px; }
+
+/* Bloque de texto + foto con el mismo formato que la portada del servicio */
+.svc-intro-text h2 { margin-bottom: 18px; }
+.svc-intro-text p { font-size: 17px; color: var(--text); margin-bottom: 14px; max-width: 52ch; }
+
+/* Cuadros beige con las áreas del currículo (página de Prescolar) */
+.curr-tiles { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 4px; max-width: 540px; }
+.curr-tiles a {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 18px; border-radius: 16px;
+  background: #f4ede4; border: 1px solid #ebe1d4;
+  color: var(--ink); font-size: 15px; font-weight: 600;
+  transition: background .25s, transform .25s, border-color .25s;
+}
+.curr-tiles a::after { content: "→"; font-weight: 500; color: var(--muted); transition: transform .25s, color .25s; }
+.curr-tiles a:hover { background: #ece2d5; border-color: #ddd0bf; transform: translateY(-2px); }
+.curr-tiles a:hover::after { transform: translateX(3px); color: var(--ink); }
+.curr-tiles a:focus-visible { outline: 2px solid var(--sage); outline-offset: 2px; }
+.curr-tiles a[aria-current="page"] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.curr-tiles a[aria-current="page"]::after { content: none; }
+
+/* Páginas de las áreas del currículo */
+.area-blue { --c: var(--blue); --c-soft: #e9f0f5; }
+.area-mauve { --c: var(--mauve); --c-soft: #efe9ee; }
+.area-sage { --c: var(--sage); --c-soft: #eef2ec; }
+.area-terracotta { --c: var(--terracotta); --c-soft: #f6ece6; }
+.area-peach { --c: var(--peach); --c-soft: #fbeeea; }
+
+/* Bloque con la letra, igual que los bloques del logo */
+.letter-tile {
+  justify-self: end; width: 100%; max-width: 360px; aspect-ratio: 1;
+  background: var(--c); border-radius: 72px; padding: 38px;
+  transform: rotate(-5deg); box-shadow: 0 30px 60px rgba(74, 89, 74, .12);
+}
+.letter-tile span {
+  display: grid; place-items: center; width: 100%; height: 100%;
+  background: #fff; border-radius: 48px;
+  font-family: "Fredoka", sans-serif; font-weight: 600; font-size: clamp(110px, 14vw, 190px); line-height: 1;
+  color: var(--c);
+}
+.area-more { margin-top: 64px; }
+.area-more h2 { font-size: 20px; margin-bottom: 16px; }
+@media (max-width: 640px) {
+  .letter-tile { justify-self: center; max-width: 220px; border-radius: 48px; padding: 24px; }
+  .letter-tile span { border-radius: 30px; font-size: 120px; }
+}
+.more-link { font-size: 14px; font-weight: 600; color: var(--ink); }
+.more-link:hover { text-decoration: underline; }
+.letter-tile.two span { font-size: clamp(84px, 10vw, 140px); letter-spacing: -0.02em; }
+@media (max-width: 640px) { .letter-tile.two span { font-size: 86px; } }
